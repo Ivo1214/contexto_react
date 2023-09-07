@@ -1,0 +1,11 @@
+.container {
+  background-color: red;
+  padding: 20px;
+}
+
+.h1 {
+  color: rgb(224, 205, 179);
+  text-transform: uppercase;
+  text-align: left;
+  font-size: 35px;
+}
