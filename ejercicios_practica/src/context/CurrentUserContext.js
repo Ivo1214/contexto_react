@@ -1,3 +1,6 @@
 import React, {createContext} from 'react';
 
-export const user = createContext({name:""});
+export const PruebaContext = createContext({
+    user: {name: '', email: ''},
+    setUser: () => {}
+});

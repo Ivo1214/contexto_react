@@ -1,20 +1,29 @@
 import { useContext } from "react";
-import Button from "./Button";
-import {user} from "../context/CurrentUserContext";
+import {PruebaContext} from "../context/CurrentUserContext";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginButton() {
-    const { currentUser, setCurrentUser } = useContext(user);
+    const { currentUser, setCurrentUser } = useContext(PruebaContext);
+    const navigate = useNavigate();
   
-    if (currentUser.name !== "") {
-      return <p>Hola {currentUser.name}, te esperábamos.</p>;
+
+    function handleSubmit(e) {
+      e.preventDefault();
+  
+      const obj = {
+        name: e.target.nombre.value,
+        email: e.target.email.value,
+      };
+      setCurrentUser(obj);
+      navigate("/");
     }
-  
+    
     return (
-      <Button
-        onClick={() => {
-          setCurrentUser({ name: "Ivo" });
-        }}
-      >
-        Log in
-      </Button>
+      <div className='formulario'>
+        <form onSubmit={handleSubmit} className='login'>
+          <input type='text' placeholder='Nombre:' name='nombre' />
+          <input type='email' placeholder='Email:' name='email' />
+          <input type='submit' value={"Enviar"} />
+        </form>
+      </div>
     )};

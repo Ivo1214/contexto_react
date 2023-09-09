@@ -1,25 +1,33 @@
 // import './App.css';
 import RouterPrincipal from './router/RouterPrincipal';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 // Contexts
-import {user} from './context/CurrentUserContext';
+import {PruebaContext} from './context/CurrentUserContext';
 
-// Components
-import Form  from './components/Form.jsx';
 
 
 function App() {
-  let [currentUser, setCurrentUser] = useState ({name:""});
+  let [currentUser, setCurrentUser] = useState ({name:"", email: ""});
+  
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser){
+      setCurrentUser(storedUser);
+    }
+  },[])
+
+  useEffect(() => {
+    localStorage.setItem("user", currentUser);
+  }, [currentUser])
 
   return (
     <div className="App">
-      <user.Provider value={{currentUser, setCurrentUser}}>
-        {/* <header className="App-header">
+      <PruebaContext.Provider value={{currentUser, setCurrentUser}}>
+        <header className="App-header">
           <RouterPrincipal></RouterPrincipal>
-        </header> */}
-        <Form/>
-      </user.Provider>
+        </header>
+      </PruebaContext.Provider>
     </div>
   );
 }
